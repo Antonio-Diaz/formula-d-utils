@@ -1,11 +1,6 @@
 import { useQualifyingStore, QualifyingEntry } from '../../../store/qualifyingStore';
-import { motion } from '../../../utils/fakeMotion';
-
-function parseTime(t: string) {
-  const [m, s] = t.split(':').map(Number);
-  if (isNaN(m) || isNaN(s)) return Infinity;
-  return m * 60 + s;
-}
+import QualifyingRow from './QualifyingRow';
+import { parseTime } from '../../../utils/time';
 
 export function sortEntries(entries: QualifyingEntry[]) {
   return [...entries].sort((a, b) => {
@@ -19,9 +14,6 @@ export function sortEntries(entries: QualifyingEntry[]) {
 
 function QualifyingTable() {
   const entries = useQualifyingStore((s) => s.entries);
-  const update = useQualifyingStore((s) => s.updateEntry);
-  const remove = useQualifyingStore((s) => s.removeEntry);
-
   const sorted = sortEntries(entries);
 
   return (
@@ -39,44 +31,7 @@ function QualifyingTable() {
         </thead>
         <tbody>
           {sorted.map((e, index) => (
-            <motion.tr key={e.id} layout className="text-amber-400">
-              <td className="p-2">{index + 1}</td>
-              <td className="p-2">
-                <input
-                  className="bg-gray-800 border border-gray-700 rounded p-1 text-white"
-                  value={e.name}
-                  onChange={(ev) => update(e.id, { name: ev.target.value })}
-                />
-              </td>
-              <td className="p-2">
-                <input
-                  className="bg-gray-800 border border-gray-700 rounded p-1 text-white w-20"
-                  value={e.time}
-                  onChange={(ev) => update(e.id, { time: ev.target.value })}
-                />
-              </td>
-              <td className="p-2">
-                <input
-                  type="number"
-                  className="bg-gray-800 border border-gray-700 rounded p-1 text-white w-20"
-                  value={e.rolls}
-                  onChange={(ev) => update(e.id, { rolls: Number(ev.target.value) })}
-                />
-              </td>
-              <td className="p-2">
-                <input
-                  type="number"
-                  className="bg-gray-800 border border-gray-700 rounded p-1 text-white w-20"
-                  value={e.penalty}
-                  onChange={(ev) => update(e.id, { penalty: Number(ev.target.value) })}
-                />
-              </td>
-              <td className="p-2">
-                <button className="text-red-500" onClick={() => remove(e.id)}>
-                  X
-                </button>
-              </td>
-            </motion.tr>
+            <QualifyingRow key={e.id} entry={e} index={index} />
           ))}
         </tbody>
       </table>

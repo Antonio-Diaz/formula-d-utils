@@ -6,21 +6,16 @@ import { motion } from '../../../utils/fakeMotion';
 function QualifyingEntryForm() {
   const addEntry = useQualifyingStore((s) => s.addEntry);
   const [name, setName] = useState('');
-  const [time, setTime] = useState('');
-  const [rolls, setRolls] = useState(0);
-  const [penalty, setPenalty] = useState(0);
+  const [time] = useState('00:00');
 
   const handleAdd = () => {
-    if (!name || !time) {
-      toast.error('Nombre y tiempo requeridos');
+    if (!name) {
+      toast.error('Nombre requerido');
       return;
     }
-    addEntry({ name, time, rolls, penalty });
+    addEntry({ name, time, rolls: 0, penalty: 0 });
     toast.success('Resultado agregado');
     setName('');
-    setTime('');
-    setRolls(0);
-    setPenalty(0);
   };
 
   return (
@@ -32,34 +27,6 @@ function QualifyingEntryForm() {
             className="ml-2 rounded bg-gray-800 border border-gray-700 p-1 text-white"
             value={name}
             onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label className="text-amber-400">
-          Tiempo
-          <input
-            className="ml-2 rounded bg-gray-800 border border-gray-700 p-1 text-white"
-            placeholder="MM:SS"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-          />
-        </label>
-        <label className="text-amber-400">
-          Tiradas
-          <input
-            type="number"
-            className="ml-2 rounded bg-gray-800 border border-gray-700 p-1 text-white w-20"
-            min={0}
-            value={rolls}
-            onChange={(e) => setRolls(Number(e.target.value))}
-          />
-        </label>
-        <label className="text-amber-400">
-          Penalización
-          <input
-            type="number"
-            className="ml-2 rounded bg-gray-800 border border-gray-700 p-1 text-white w-20"
-            value={penalty}
-            onChange={(e) => setPenalty(Number(e.target.value))}
           />
         </label>
         <button className="btn-primary self-start mt-2" onClick={handleAdd}>
