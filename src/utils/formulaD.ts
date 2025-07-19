@@ -38,3 +38,10 @@ export function suggestGear(distance: number) {
   }
   return best;
 }
+
+export function rollGear(gear: number) {
+  const { dice } = gears[gear];
+  const index = Math.floor(Math.random() * dice.length);
+  return dice[index];
+}
+
