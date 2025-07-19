@@ -44,3 +44,4 @@ export function rollGear(gear: number) {
   const index = Math.floor(Math.random() * dice.length);
   return dice[index];
 }
+
