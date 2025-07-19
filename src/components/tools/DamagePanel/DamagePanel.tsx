@@ -1,12 +1,23 @@
 import { useGameStore } from '../../../store/gameStore';
+import { Minus, Plus } from 'lucide-react';
 
 function Counter({ label, value, onChange }: { label: string; value: number; onChange: (v: number) => void }) {
   const alert = value >= 5 ? 'text-red-600' : '';
   return (
     <div className="flex items-center gap-2">
-      <span className={alert}>{label}: {value}</span>
-      <button className="bg-gray-200 px-2" onClick={() => onChange(value - 1)}>-</button>
-      <button className="bg-gray-200 px-2" onClick={() => onChange(value + 1)}>+</button>
+      <span className={`${alert} transition-colors duration-300`}>{label}: {value}</span>
+      <button
+        className="bg-gradient-to-r from-gray-200 to-gray-300 px-2 rounded hover:scale-105 transition-transform focus:outline-none"
+        onClick={() => onChange(value - 1)}
+      >
+        <Minus className="w-4 h-4" />
+      </button>
+      <button
+        className="bg-gradient-to-r from-gray-200 to-gray-300 px-2 rounded hover:scale-105 transition-transform focus:outline-none"
+        onClick={() => onChange(value + 1)}
+      >
+        <Plus className="w-4 h-4" />
+      </button>
     </div>
   );
 }

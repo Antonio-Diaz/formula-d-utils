@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { Dice5, Play } from 'lucide-react';
 import { getGearRange, rollGear } from '../../../utils/formulaD';
 
 function DiceRoller() {
@@ -10,6 +12,7 @@ function DiceRoller() {
   const handleRoll = () => {
     const r = rollGear(gear);
     setResult(r);
+    toast.success(`Resultado: ${r}`);
   };
 
   const handleSimulate = () => {
@@ -18,6 +21,7 @@ function DiceRoller() {
       seq.push(rollGear(gear));
     }
     setSequence(seq);
+    toast(`Secuencia: ${seq.join(', ')}`);
   };
 
   const range = getGearRange(gear);
@@ -41,8 +45,11 @@ function DiceRoller() {
           </select>
         </label>
         <p>Rango: {range.min}-{range.max}</p>
-        <button className="bg-blue-500 text-white px-2 py-1" onClick={handleRoll}>
-          Tirar dado
+        <button
+          className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-2 py-1 rounded hover:scale-105 transition-transform focus:outline-none flex items-center gap-1"
+          onClick={handleRoll}
+        >
+          <Dice5 className="w-4 h-4" /> Tirar dado
         </button>
         {result !== null && <p>Resultado: {result}</p>}
         <div className="mt-2">
@@ -57,10 +64,10 @@ function DiceRoller() {
             />
           </label>
           <button
-            className="bg-green-500 text-white px-2 py-1 ml-2"
+            className="bg-gradient-to-r from-green-500 to-green-600 text-white px-2 py-1 ml-2 rounded hover:scale-105 transition-transform focus:outline-none flex items-center gap-1"
             onClick={handleSimulate}
           >
-            Simular
+            <Play className="w-4 h-4" /> Simular
           </button>
         </div>
         {sequence.length > 0 && (
