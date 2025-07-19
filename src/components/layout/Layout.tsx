@@ -8,6 +8,7 @@ interface LayoutProps {
   children: ReactNode;
   current: ToolId;
   setCurrent: (id: ToolId) => void;
+  aside?: ReactNode;
 }
 
 const navItems: NavItem[] = [
@@ -18,7 +19,7 @@ const navItems: NavItem[] = [
   { id: 'log', label: 'Registro' },
 ];
 
-function Layout({ children, current, setCurrent }: LayoutProps) {
+function Layout({ children, current, setCurrent, aside }: LayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -37,6 +38,7 @@ function Layout({ children, current, setCurrent }: LayoutProps) {
           className="hidden md:block"
         />
         <main className="flex-1 p-4 max-w-screen-md w-full mx-auto">{children}</main>
+        {aside && <aside className="hidden lg:block w-72 p-4">{aside}</aside>}
       </div>
       <Sidebar
         nav={navItems}
