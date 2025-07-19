@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useGameStore, LogEntry } from '../../../store/gameStore';
+import { toast } from 'react-hot-toast';
+import { PlusCircle, Download, Upload } from 'lucide-react';
 
 function GameLog() {
   const logs = useGameStore((s) => s.logs);
@@ -24,6 +26,7 @@ function GameLog() {
     setPlayer('');
     setRoll(0);
     setMovement(0);
+    toast.success('Entrada añadida');
   };
 
   const handleExport = () => {
@@ -36,6 +39,7 @@ function GameLog() {
     a.download = 'logs.json';
     a.click();
     URL.revokeObjectURL(url);
+    toast.success('Log exportado');
   };
 
   return (
@@ -78,14 +82,23 @@ function GameLog() {
             onChange={(e) => setMovement(Number(e.target.value))}
           />
         </label>
-        <button className="bg-blue-500 text-white px-2 py-1" onClick={handleAdd}>
-          Añadir entrada
+        <button
+          className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-2 py-1 rounded hover:scale-105 transition-transform focus:outline-none flex items-center gap-1"
+          onClick={handleAdd}
+        >
+          <PlusCircle className="w-4 h-4" /> Añadir entrada
         </button>
-        <button className="bg-green-500 text-white px-2 py-1" onClick={handleExport}>
-          Exportar JSON
+        <button
+          className="bg-gradient-to-r from-green-500 to-green-600 text-white px-2 py-1 rounded hover:scale-105 transition-transform focus:outline-none flex items-center gap-1"
+          onClick={handleExport}
+        >
+          <Download className="w-4 h-4" /> Exportar JSON
         </button>
-        <button className="bg-gray-200 px-2 py-1" onClick={load}>
-          Cargar
+        <button
+          className="bg-gradient-to-r from-gray-200 to-gray-300 px-2 py-1 rounded hover:scale-105 transition-transform focus:outline-none flex items-center gap-1"
+          onClick={load}
+        >
+          <Upload className="w-4 h-4" /> Cargar
         </button>
         <div className="mt-2">
           {logs.map((l, i) => (
