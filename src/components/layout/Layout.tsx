@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import Header, { NavItem } from './Header';
 import Sidebar from './Sidebar';
 
-export type ToolId = 'movement' | 'dice' | 'damage' | 'curve' | 'log';
+export type ToolId = 'movement' | 'dice' | 'damage' | 'curve' | 'log' | 'qualify';
 
 interface LayoutProps {
   children: ReactNode;
@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { id: 'damage', label: 'Daños' },
   { id: 'curve', label: 'Curvas' },
   { id: 'log', label: 'Registro' },
+  { id: 'qualify', label: 'Clasificación' },
 ];
 
 function Layout({ children, current, setCurrent }: LayoutProps) {
