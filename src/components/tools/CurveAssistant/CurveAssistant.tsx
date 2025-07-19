@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { suggestGear } from '../../../utils/formulaD';
 
 function CurveAssistant() {
@@ -15,7 +16,12 @@ function CurveAssistant() {
   }
 
   return (
-    <div className="border p-4 rounded shadow max-w-md mt-4">
+    <motion.div
+      className="border p-4 rounded shadow max-w-md mt-4"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+    >
       <h2 className="text-xl font-semibold mb-2">Asistente de Curvas</h2>
       <div className="flex flex-col gap-2">
         <label>
@@ -44,7 +50,7 @@ function CurveAssistant() {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   getGearRange,
   probabilityToReach,
@@ -14,7 +15,12 @@ function MovementCalculator() {
   const suggestion = suggestGear(distance);
 
   return (
-    <div className="border p-4 rounded shadow max-w-md">
+    <motion.div
+      className="border p-4 rounded shadow max-w-md"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+    >
       <h2 className="text-xl font-semibold mb-2">Calculadora de Movimiento</h2>
       <div className="flex flex-col gap-2">
         <label>
@@ -55,7 +61,7 @@ function MovementCalculator() {
           Marcha sugerida: {suggestion}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

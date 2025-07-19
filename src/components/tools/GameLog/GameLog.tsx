@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore, LogEntry } from '../../../store/gameStore';
 
 function GameLog() {
@@ -39,7 +40,12 @@ function GameLog() {
   };
 
   return (
-    <div className="border p-4 rounded shadow max-w-md mt-4">
+    <motion.div
+      className="border p-4 rounded shadow max-w-md mt-4"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+    >
       <h2 className="text-xl font-semibold mb-2">Registro de Partidas</h2>
       <div className="flex flex-col gap-2">
         <label>
@@ -88,14 +94,21 @@ function GameLog() {
           Cargar
         </button>
         <div className="mt-2">
-          {logs.map((l, i) => (
-            <p key={i}>
-              {l.player} – marcha {l.gear} – tirada {l.roll} – mov {l.movement}
-            </p>
-          ))}
+          <AnimatePresence>
+            {logs.map((l, i) => (
+              <motion.p
+                key={i}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+              >
+                {l.player} – marcha {l.gear} – tirada {l.roll} – mov {l.movement}
+              </motion.p>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

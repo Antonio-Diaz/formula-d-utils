@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getGearRange, rollGear } from '../../../utils/formulaD';
 
 function DiceRoller() {
@@ -23,7 +24,12 @@ function DiceRoller() {
   const range = getGearRange(gear);
 
   return (
-    <div className="border p-4 rounded shadow max-w-md mt-4">
+    <motion.div
+      className="border p-4 rounded shadow max-w-md mt-4"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+    >
       <h2 className="text-xl font-semibold mb-2">Simulador de Tiradas</h2>
       <div className="flex flex-col gap-2">
         <label>
@@ -44,7 +50,19 @@ function DiceRoller() {
         <button className="bg-blue-500 text-white px-2 py-1" onClick={handleRoll}>
           Tirar dado
         </button>
-        {result !== null && <p>Resultado: {result}</p>}
+        {result !== null && (
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={result}
+              initial={{ scale: 0.8, y: -10, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.8, y: 10, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              Resultado: {result}
+            </motion.p>
+          </AnimatePresence>
+        )}
         <div className="mt-2">
           <label>
             Turnos a simular:
@@ -69,7 +87,7 @@ function DiceRoller() {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
