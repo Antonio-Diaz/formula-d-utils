@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   getGearRange,
   probabilityToHandleCurve,
@@ -53,8 +54,13 @@ function MovementCalculator() {
   }
 
   return (
-    <div className="max-w-xl mx-auto rounded-xl shadow-md p-4 bg-gray-900 text-amber-400">
-      <h2 className="text-2xl font-bold mb-4 text-center md:text-left">Calculadora de Movimiento</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="card-glow max-w-xl mx-auto text-acidYellow"
+    >
+      <h2 className="text-2xl font-display font-bold mb-4 text-center md:text-left text-electricBlue">Calculadora de Movimiento</h2>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
           <label htmlFor="gear" className="text-sm">
@@ -62,7 +68,7 @@ function MovementCalculator() {
             <select
               id="gear"
               aria-label="Marcha"
-              className="mt-1 w-full rounded border border-gray-700 bg-gray-800 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+              className="mt-1 w-full rounded-xl bg-carbon border border-electricBlue p-2 text-electricBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink"
               value={gear}
               onChange={(e) => setGear(Number(e.target.value))}
             >
@@ -79,7 +85,7 @@ function MovementCalculator() {
               id="distance"
               aria-label="Casillas hasta curva"
               type="number"
-              className="mt-1 w-full rounded border border-gray-700 bg-gray-800 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+              className="mt-1 w-full rounded-xl bg-carbon border border-electricBlue p-2 text-electricBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink"
               value={distance}
               min={1}
               onChange={(e) => setDistance(Number(e.target.value))}
@@ -89,7 +95,7 @@ function MovementCalculator() {
             Carril actual
             <select
               id="currentLane"
-              className="mt-1 w-full rounded border border-gray-700 bg-gray-800 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+              className="mt-1 w-full rounded-xl bg-carbon border border-electricBlue p-2 text-electricBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink"
               value={currentLane}
               onChange={(e) => setCurrentLane(e.target.value as Lane)}
             >
@@ -102,7 +108,7 @@ function MovementCalculator() {
             Carril al entrar
             <select
               id="targetLane"
-              className="mt-1 w-full rounded border border-gray-700 bg-gray-800 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+              className="mt-1 w-full rounded-xl bg-carbon border border-electricBlue p-2 text-electricBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink"
               value={targetLane}
               onChange={(e) => setTargetLane(e.target.value as Lane)}
             >
@@ -115,7 +121,7 @@ function MovementCalculator() {
             Dirección de la curva
             <select
               id="direction"
-              className="mt-1 w-full rounded border border-gray-700 bg-gray-800 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+              className="mt-1 w-full rounded-xl bg-carbon border border-electricBlue p-2 text-electricBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink"
               value={direction}
               onChange={(e) => setDirection(e.target.value as CurveDirection)}
             >
@@ -128,7 +134,7 @@ function MovementCalculator() {
             <input
               id="turns"
               type="number"
-              className="mt-1 w-full rounded border border-gray-700 bg-gray-800 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+              className="mt-1 w-full rounded-xl bg-carbon border border-electricBlue p-2 text-electricBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink"
               value={turns}
               min={1}
               onChange={(e) => setTurns(Number(e.target.value))}
@@ -143,11 +149,11 @@ function MovementCalculator() {
           <p>Prob. de quedarse antes: {(prob.before * 100).toFixed(0)}%</p>
           <p>Prob. de entrar legalmente: {(prob.inCurve * 100).toFixed(0)}%</p>
           <p>Prob. de pasarse: {(prob.overshoot * 100).toFixed(0)}%</p>
-          <p className="mt-2 font-semibold">Marcha sugerida: {suggestion}</p>
-          {warning && <p className="text-red-400">{warning}</p>}
+          <p className="mt-2 font-semibold text-electricBlue">Marcha sugerida: {suggestion}</p>
+          {warning && <p className="text-intenseRed">{warning}</p>}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

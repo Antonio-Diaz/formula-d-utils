@@ -24,7 +24,7 @@ function Layout({ children, current, setCurrent, aside }: LayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col font-sans text-gray-800">
+    <div className="min-h-screen flex flex-col font-sans bg-carbon text-electricBlue">
       <Header
         nav={navItems}
         current={current}
@@ -38,7 +38,7 @@ function Layout({ children, current, setCurrent, aside }: LayoutProps) {
           onSelect={(id) => setCurrent(id as ToolId)}
           className="hidden md:block"
         />
-        <main className="flex-1 p-4 max-w-screen-md w-full mx-auto">{children}</main>
+        <main className="flex-1 p-6 max-w-screen-md w-full mx-auto grid gap-6">{children}</main>
         {aside && <aside className="hidden lg:block w-72 p-4">{aside}</aside>}
       </div>
       <Sidebar
