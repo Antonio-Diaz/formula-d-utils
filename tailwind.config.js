@@ -2,6 +2,7 @@ const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+  darkMode: 'class',
   content: [
     './index.html',
     './src/**/*.{ts,tsx}',
@@ -9,15 +10,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: colors.gray['900'],
-        primary: colors.amber,
-        accent: {
-          orange: colors.orange,
-          lime: colors.lime,
-        },
+        carbon: '#0F0F0F',
+        graphite: '#1C1C1E',
+        neonPink: '#FF4FCB',
+        electricBlue: '#3B9CFF',
+        intenseRed: '#FF2E2E',
+        brightGreen: '#0AFFA0',
+        acidYellow: '#FFDC00',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        sans: ['Rajdhani', 'ui-sans-serif', 'system-ui'],
+        display: ['Orbitron', 'Rajdhani', 'ui-sans-serif'],
       },
       keyframes: {
         'bounce-in': {
@@ -29,26 +32,29 @@ module.exports = {
       animation: {
         'bounce-in': 'bounce-in 0.5s ease-out both',
       },
+      boxShadow: {
+        neon: '0 0 10px 0 rgba(255, 79, 203, 0.7)',
+      },
     },
   },
   plugins: [
     plugin(function ({ addComponents, theme }) {
       addComponents({
         '.card': {
-          backgroundColor: theme('colors.background'),
+          backgroundColor: theme('colors.graphite'),
           color: theme('colors.white'),
           padding: theme('spacing.4'),
           borderRadius: theme('borderRadius.lg'),
           boxShadow: theme('boxShadow.md'),
         },
         '.btn-primary': {
-          backgroundColor: theme('colors.primary.500'),
-          color: theme('colors.white'),
+          backgroundColor: theme('colors.neonPink'),
+          color: theme('colors.graphite'),
           padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
           borderRadius: theme('borderRadius.md'),
           fontWeight: theme('fontWeight.semibold'),
           '&:hover': {
-            backgroundColor: theme('colors.primary.600'),
+            backgroundColor: theme('colors.electricBlue'),
           },
         },
       });
