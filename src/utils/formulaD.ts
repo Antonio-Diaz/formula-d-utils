@@ -45,3 +45,41 @@ export function rollGear(gear: number) {
   return dice[index];
 }
 
+export type Lane = 'interior' | 'medio' | 'exterior';
+export type CurveDirection = 'izquierda' | 'derecha';
+
+export interface Curve {
+  lane: Lane;
+  direction: CurveDirection;
+  requiredTurns: number;
+}
+
+const laneFactor: Record<Lane, number> = {
+  interior: 5,
+  medio: 6,
+  exterior: 7,
+};
+
+export function getCurveLength(curve: Curve) {
+  return laneFactor[curve.lane] * curve.requiredTurns;
+}
+
+export function probabilityToHandleCurve(
+  gear: number,
+  distance: number,
+  curve: Curve,
+) {
+  const { dice } = gears[gear];
+  const total = dice.length;
+  const length = getCurveLength(curve);
+  const before = dice.filter((d) => d < distance).length / total;
+  const inCurve =
+    dice.filter((d) => d >= distance && d <= distance + length).length / total;
+  const overshoot = dice.filter((d) => d > distance + length).length / total;
+  return { before, inCurve, overshoot, length };
+}
+
+export function suggestGearForCurve(distance: number, curve: Curve) {
+  return suggestGear(distance + getCurveLength(curve));
+}
+
